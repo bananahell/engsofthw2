@@ -1,17 +1,11 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
-    @title_class = ''
-    @release_class = ''
-    @selected_ratings = []
-    @selected_ratings_hash = Hash.new
     @all_ratings = Movie.get_all_ratings
-
+    @selected_ratings = params[:ratings]
     if params[:sort_by] == "title"
-      @title_class =  'hilite'
       @movies = Movie.all.sort_by { |m| m.title }
     elsif params[:sort_by] == "release"
-      @release_class =  'hilite'
       @movies = Movie.all.sort_by { |m| m.release_date }
     else
       @movies = Movie.all
